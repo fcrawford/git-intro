@@ -149,25 +149,35 @@ idea: non-linear, distributed system where every worker has a full copy of the r
 
 ---
 
-Non-quantitative Academic researchers basically use two strategies for collaboration: 
+# Strategies
+
+Non-quantitative academic researchers basically use two strategies for collaboration: 
 
 ### Shared Folders (Dropbox/Box)
 
-Single synced shared folder. One person edits at a time. Previous versions named by date and stored in a sub-folder called "older versions".  Conflicting files renamed automatically, resolved manually.  
+Single synced shared folder. One person edits at a time. Previous versions named by date and stored in a sub-folder called "older versions".  Conflicting files renamed automatically, resolved manually. Cloud-based software keeps track of synced changes.  Restoring older versions possible. No automatic merging. 
 
 ### Online real-time (Google Docs/Overleaf)
 
-Single synced shared file, updated online simultaneously and concurrently. Previous versions stored online.  No versioning or branching. Conflicts cannot arise because two people cannot be working on different versions of the same document. Rich text documents only.  
+Single synced shared file, updated online simultaneously and concurrently. Previous versions stored online.  No versioning or branching. Conflicts cannot arise because two people cannot be working on different versions of the same document. Restoring older versions possible.
 
 ---
 
-# About version control
+# Why version control? 
 
-A little history
-cvs
-svn 
-hg 
-git
+Version control helps teams manage and keep track of changes to documents (e.g. source code) over time.
+
+For modern collaboration and software development, it is not reasonable to block collaborators from working on the project while one person makes changes to a single file.  
+
+It is better to let team members work in parallel.  
+
+However, simultaneous editing by different people can introduce conflicts that introduce errors in the document/code, and require painstaking merging of multiple changes. 
+
+
+
+Other version control systems
+
+> cvs svn bitkeeper hg git
 
 centralized and distributed version control
 locking
@@ -179,35 +189,41 @@ locking
 
 Git was created by Linus Torvalds, the inventor of Linux, in 2005 to manage work by hundreds of developers on the Linux kernel.  
 
+Git was designed for software development by large teams.  But it is useful for many kinds of projects. 
+
+Git is difficult to learn for people unfamiliar with modern software development practices and newcomers to version control.  
+
 ---
 
 # A philosophy
 
 
-The thing to remember is that scientific collaboration is a social act. 
+The thing to remember is that scientific collaboration is a social act.  
 
 A version control system does not replace planning and communication during a project. 
 
 For us, Git completely solves three problems, and partially solves another:
 1. version control
 2. offsite backup
-3. Data/code sharing 
-4. communicating project needs and changes
+3. data/code sharing post-publication
+4. communicating project needs, plans, and changes to team members
 
 The fourth one is by far the hardest.  
-
 
 ---
 
 # Github
 
-founded in 2008 
-online hosting for git repositories, plus many other services.  
+Github is an online platform for hosting Git repositories plus many other services, founded in 2008. 
 
-Issue tracking (including feature requests) with labels, milestones, assignees and a search engine
-Wikis
-Pull requests with code review and comments
-Gists
+In addition to providing offsite storage, Github offers features not found in basic Git: 
+* access control 
+* issue tracking 
+* wikis
+* pull requests with code review and comments
+* Gists
+
+An academic Github account with unlimited public and private repositories is free.  
 
 
 ---
