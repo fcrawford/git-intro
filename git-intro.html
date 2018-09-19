@@ -128,6 +128,8 @@ class: center, middle, inverse
 
 # Git and Github for Collaboration
 
+## Part 1
+
 ### Scientific Research Skills Workshop Series
 
 Forrest W. Crawford
@@ -157,7 +159,7 @@ Most academic researchers use two strategies for collaboration:
 
 # Collaboration in research II
 
-### Online real-time concurrent editing (Google Docs/Overleaf/Atom teletype)
+### Online real-time concurrent editing (Google Docs/Overleaf)
 
 * Single synced shared file, updated online 
 * Simultaneously/concurrent editing 
@@ -200,7 +202,7 @@ Simultaneous editing by different people can introduce conflicts that introduce 
 
 Several version control systems have been developed:
 
-> cvs svn bitkeeper hg git
+> CVS, SVN, Bitkeeper, HG/Mercurial, Git
 
 ---
 
@@ -292,7 +294,7 @@ git config --global user.email "forrest.crawford@yale.edu"
 
 ---
 
-# Graphical interface to Git
+# Graphical interfaces to Git
 
 There are many GUIs for Git: https://git-scm.com/downloads/guis
 
@@ -386,7 +388,7 @@ drwxr-xr-x   5 forrestcrawford  staff    160 Sep 19 09:10 img/
 * `README.md` is a Markdown file containing meta-information and comments
 * `git-intro.html` is the html/MD file containing the slides
 * `img/` is a directory containing some images used in these slides
-* `.gitignore` is a file that tells Git to ignore some files
+* `.gitignore` is a file that tells Git to ignore some files that you don't want to track
 * `.git` is a hidden directory containing information for Git. 
 
 ---
@@ -405,6 +407,8 @@ Date:   Wed Sep 5 22:28:48 2018 -0400
 
     more content
 ```
+The commit ID is a big hexadecimal number that is unique to this commit.  You can always reference a commit by the first few digits of its ID. 
+
 Type `q` to exit the log display. 
 
 
@@ -422,6 +426,12 @@ Your branch is up to date with 'origin/master'.
 
 nothing to commit, working tree clean
 ```
+
+This repo is now on your computer.  You can do whatever you want with the contents. 
+
+You don't own it on GitHub, but you can use it or modify it locally in any way you wish.  
+
+You can also modify it yourself, then request that I incorporate your changes into the GitHub repo.  This is a topic for the next meeting.  
 
 ---
 
@@ -448,6 +458,19 @@ drwxr-xr-x   3 forrestcrawford  staff    96 Sep 19 09:38 ./
 drwxr-xr-x  58 forrestcrawford  staff  1856 Sep 19 09:38 ../
 drwxr-xr-x  10 forrestcrawford  staff   320 Sep 19 09:38 .git/
 ```
+
+---
+
+# Tutorial II: Aside: Git vocabulary
+
+In Git, a "commit" is the basic unit of "change" to a repository. 
+
+Git makes several distinctions regarding files and edits to files:
+* untracked files: files whose changes you do not care about tracking
+* modified files: tracked files that have changed since the last commit
+* staged files: files (with changes) added to the set of changes in the next commit
+* commit: a collection of changes in the repository
+
 
 ---
 
@@ -591,24 +614,6 @@ Date:   Wed Sep 19 10:40:40 2018 -0400
     made a bad change
 ```
 Now if you open the `README.md` file, you will see that your last change is gone. 
-
----
-
-What happened?  We created a new commit whose changes are the exact inverse of the most recent commit referenced by `HEAD`.  That is, we undid all the changes. 
-
-
-If you want to undo changes you have not yet committed, do 
-```bash
-git reset <file>
-```
-
-
-
-
-
-
-
-
 
 ---
 
@@ -763,6 +768,8 @@ Click "2 Commits", then click on the hash value for the most recent commit.
 
 # Best practices (when working alone)
 
+Never commit private or confidential information to a Git repo.  It is very difficult to remove completely.  If you accidentally do this, talk to Forrest. 
+
 Make small, frequent commits with expressive messages
 
 Git diffs are line-based, so make lines small. 
@@ -782,7 +789,7 @@ Never add auxiliary files to a repo.  Use the `.gitignore` file to manage other 
 ### LaTeX files: 
 
 * break up files
-* small lines
+* small lines, or line break after every sentence. This can be annoying. 
 * never add/commit `aux`, `log`, `out`, `bbl`, `blg`, `pdf` (unless image) files to the repo.  Only what is necessary to compile. 
 * use a Makefile to compile your document 
 
