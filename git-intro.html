@@ -324,13 +324,26 @@ class: center
 
 <img src="img/sourcetree.png" width="700px">
 
+
+---
+
+# Tutorials in this talk
+
+Today I will cover only a small part of the Git workflow, suitable for a single person working alone. 
+
+1. Clone a remote repo
+2. Create your own local repo
+3. Create your own remote repo on Github
+
+Later I will give an overview of collaborative workflows using Git. 
+
 ---
 
 # Tutorial I: clone these slides 
 
-These slides are hosted in a git repository at https://github.com/fcrawford/git-intro. Let's get the repository and inspect it. 
+These slides are in a git repository at https://github.com/fcrawford/git-intro.  Let's get the repository and inspect it. 
 
-Make a directory
+I like to put my git repos in a directory called `src`
 ```bash
 cd ~
 mkdir src
@@ -355,7 +368,10 @@ ls -la
 
 # Tutorial I: look at the files 
 
-You will see something like
+Let's look at the repo
+```bash
+ls -la
+```
 ```bash
 total 48
 drwxr-xr-x   7 forrestcrawford  staff    224 Sep 19 09:18 ./
@@ -394,145 +410,393 @@ Type `q` to exit the log display.
 
 ---
 
-# Tutorial I: status and remote
+# Tutorial I: Status
 
-### Status 
+We have not yet made any changes to this repo.  
+```bash
+git status
+```
+```bash
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+```
+
+---
+
+# Tutorial II: Create your own local repo
+
+Let's create a new Git repository for you to play with:
+```bash
+cd ~/src
+mkdir myrepo
+cd myrepo
+ls -la 
+```
+Then initialize a git repo in this directory. 
+```bash
+git init
+```
+and see what happened: 
+```bash
+ls -la 
+```
+```bash
+total 0
+drwxr-xr-x   3 forrestcrawford  staff    96 Sep 19 09:38 ./
+drwxr-xr-x  58 forrestcrawford  staff  1856 Sep 19 09:38 ../
+drwxr-xr-x  10 forrestcrawford  staff   320 Sep 19 09:38 .git/
+```
+
+---
+
+# Tutorial II: create a file
+
+Using your favorite text editor, make a new file called `myfile.txt`
+```bash
+pico myfile.txt
+```
+and add some text to this file. 
+```bash
+git status
+```
+```bash
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	myfile.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+---
+
+# Tutorial II: add the file to the repo
+
+Your file `myfile.txt` is not yet part of the git repo. It is "untracked". Let's add/stage the modified file. 
+```bash
+git add myfile.txt
+git status
+```
+```bash
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+	new file:   myfile.txt
+```
+
+---
+
+# Tutorial II: commit the changes
+
+Although your file is now being tracked by this Git repository, it is still not part of the project. You need to "commit" the file. 
+```bash
+git commit -m "added the first file"
+```
+```bash
+[master (root-commit) d9dbdc8] added the first file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 myfile.txt
+```
+The commit message tells others what you changed.  Now look at the status 
+```bash 
+git status
+```
+```bash
+On branch master
+nothing to commit, working tree clean
+```
+
+---
+
+# Tutorial II: look at the log
+
+```bash
+git log
+```
+```bash
+commit d9dbdc8c3dce5f3ab075bb26bde2b819e49d6982 (HEAD -> master)
+Author: Forrest Crawford <forrest.crawford@gmail.com>
+Date:   Wed Sep 19 09:46:30 2018 -0400
+
+    added the first file
+```
+
+---
+
+# Tutorial II: Looking at previous versions 
+
+```bash
+git checkout d9dbdc8
+```
+
+```bash
+git checkout master
+```
+
+---
+
+# Tutorial II: Undoing changes 
+
+Let's make a change that we will undo. 
+
+Open `README.md` and add a new line, then commit the change 
+```bash
+git commit -am "made a bad change"
+git log
+```
+```bash
+commit a6d8a88d68437fd866e3dbbe4a03867eca952986 (HEAD -> master)
+Author: Forrest Crawford <forrest.crawford@gmail.com>
+Date:   Wed Sep 19 10:40:40 2018 -0400
+
+    made a bad change
+```
+
+Now suppose you want to "undo" this commit. 
+```bash
+git revert HEAD
+```
+where `HEAD` is a symbol that points to the most recent commit.  If you are in vi, type `:x` to save the commit message. 
+
+---
+
+# Tutorial II: looking at the revert commit 
+
+```bash
+git log
+```
+```bash
+commit c1a7e8ec0d79b303b84b84d9c5f14c055787e95e (HEAD -> master)
+Author: Forrest Crawford <forrest.crawford@gmail.com>
+Date:   Wed Sep 19 10:41:35 2018 -0400
+
+    Revert "made a bad change"
+    
+    This reverts commit a6d8a88d68437fd866e3dbbe4a03867eca952986.
+
+commit a6d8a88d68437fd866e3dbbe4a03867eca952986
+Author: Forrest Crawford <forrest.crawford@gmail.com>
+Date:   Wed Sep 19 10:40:40 2018 -0400
+
+    made a bad change
+```
+Now if you open the `README.md` file, you will see that your last change is gone. 
+
+---
+
+What happened?  We created a new commit whose changes are the exact inverse of the most recent commit referenced by `HEAD`.  That is, we undid all the changes. 
+
+
+If you want to undo changes you have not yet committed, do 
+```bash
+git reset <file>
+```
+
+
+
+
+
+
+
+
+
+---
+
+# Tutorial III: Make your own remote repo
+
+Go to your github profile page, click "Repositories", then "New"
+
+<img src="img/myrepos.png" width="500px">
+
+---
+
+# Tutorial III: Give your repo a name
+
+Create a new repo called "myfirstrepo".  You can make it "private" if you wish.
+
+Check "Initialize this repository with a README"
+
+<img src="img/mynewrepo.png" width="500px">
+
+Click "Create Repository"
+
+---
+
+# Tutorial III: Look at your new repo
+
+You will see your new repo on Github
+
+<img src="img/myfirstrepo.png" width="500px">
+
+
+---
+
+# Tutorial III: clone your new repo
+
+Click "Clone or Download" and copy the text. 
+
+Then go to the UNIX command line and type 
+
+```bash
+cd ~/src
+git clone git@github.com:fcrawford/myfirstrepo.git
+```
+```bash
+Cloning into 'myfirstrepo'...
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (3/3), done.
+```
+
+Now look at it
+```bash
+ls -la 
+```
+```bash
+total 8
+drwxr-xr-x   4 forrestcrawford  staff   128 Sep 19 10:08 ./
+drwxr-xr-x  59 forrestcrawford  staff  1888 Sep 19 10:08 ../
+drwxr-xr-x  13 forrestcrawford  staff   416 Sep 19 10:08 .git/
+-rw-r--r--   1 forrestcrawford  staff    13 Sep 19 10:08 README.md
+```
+
+---
+
+# Tutorial III: Make a change and commit it
+
+You have not yet changed anything: do `git status` to make sure. 
+
+Open `README.md` in a text editor, make a change, and save the file.  
+```bash
+git status
+```
+```bash
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+Now stage the file and commit the change
+```bash
+git add README.md
+git commit -m "added one line to readme"
+```
+
+---
+
+# Tutorial III: see the new state of the repo
 
 ```bash
 git status
 ```
+```bash
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
 
-### Remote hosts
+nothing to commit, working tree clean
+```
 
+---
+
+# Tutorial III: push your changes to the remote repo (GitHub)
+
+First, let's see what the remote repo is
 ```bash
 git remote -v
 ```
-and you will see
 ```bash
-origin	git@github.com:fcrawford/git-intro.git (fetch)
-origin	git@github.com:fcrawford/git-intro.git (push)
+origin	git@github.com:fcrawford/myfirstrepo.git (fetch)
+origin	git@github.com:fcrawford/myfirstrepo.git (push)
+```
+So you are going to "push" your changes to the remote host on GitHub
+```bash
+git push
+```
+```bash
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 275 bytes | 275.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To github.com:fcrawford/myfirstrepo.git
+   234a07a..16eb3bd  master -> master
 ```
 
+---
 
+# Tutorial III: look at your changes online 
 
+You can see the last commit message to the `README.md`. 
+
+<img src="img/repochanged.png" width="600px">
 
 ---
 
-# Git commands
+# Tutorial III: look at your changes online 
 
-init
-checkout
-clone
-add
-status
-commit
-push 
-pull
-log
-branch
-remote
+Click "2 Commits", then click on the hash value for the most recent commit. 
 
-reset
-rebase
-blame 
-
-.gitignore
+<img src="img/mycommits.png" width="600px">
 
 ---
 
-# Workflows
+# Tutorial III: look at your changes online 
 
-Creating a new repo from scratch
-
-Creating a new repo from an existing directory
-
-Looking at the code for another project
-
-Contributing to another project 
-
-Collaborating on an academic project
-
-Branch + merge
-
-Pull requests
+<img src="img/commitdiff.png" width="600px">
 
 ---
 
-# Best practices 
+# Best practices (when working alone)
 
-Plan and communicate with your collaborators.  Who is working on what, and when? 
+Make small, frequent commits with expressive messages
 
-small, frequent commits
-
-diffs are line-based, so make lines small. 
+Git diffs are line-based, so make lines small. 
 
 break up code into several files. 
-
-Create a branch to experiment. 
-
-communicate to manage merge conflicts
 
 Every day, list the things you want to do, and separate them conceptually into discrete tasks.  Your goal is to make each of these separate commits.  
 
 Don't leave uncommitted changes at the end of the day. Push everything to remote. 
 
-Never add auxiliary files to a repo.  Use the `.gitignore` file to manage. 
+Never add auxiliary files to a repo.  Use the `.gitignore` file to manage other files.  
 
 ---
 
-# Using Git on your own
+# Special consideration 
 
-You may wish to use GitHub to host a private repo that you are working on alone.  For example, your CV or a project you are not ready to share yet.  
+### LaTeX files: 
 
-Maybe want to get the benefits of automatic versioning, offsite storage, and easy syncing between machines, but aren't ready to share with others.  
+* break up files
+* small lines
+* never add/commit `aux`, `log`, `out`, `bbl`, `blg`, `pdf` (unless image) files to the repo.  Only what is necessary to compile. 
+* use a Makefile to compile your document 
 
+### R packages
 
-
-
-
-
----
-
-# Using Git with one or two others
-
-
+* The repo _is_ the package.  
+* The `README` file is descriptive
+* Don't commit auto-generated files. 
 
 ---
 
-# A Slack + Git workflow for collaboration 
+# Collaborating with others
 
-For collaboration with me and most other academic researchers, there is a simple workflow that will work well for you.  
-
-Write on the Slack channel what you are going to work on today. If another person is also working, say which files, and ask that they don't mess with the files you are changing. 
-
-small commits, push often. 
-
-after you make your last commit, summarize the changes. 
-
-Use the README.md to keep a todo list and summarize progress.  This will become the public introduction to your project. 
-
----
-
-# Contributing to an existing project
-
-
----
-
-
-
-Consideration for Tex/LaTeX documents
-
-break up files
-small lines
-never add aux, log, out, bbl, blg, pdf (unless image) to the repo.  Only what is necessary to compile. 
-
-use a Makefile to compile 
-
----
-
-Considerations for R packages
-
-The repo is the package.  README is descriptive.  Don't commit auto-generated files. 
+This is the topic of the next skills workshop. Getting familiar with using Git on your own is a pre-requisite to using Git with a team. 
 
 ---
 
