@@ -138,73 +138,105 @@ Forrest W. Crawford
 
 layout: false
 
-# The big idea
+# Collaboration in research I
 
-Why it is hard to collaborate with many people in different places.
+Most academic researchers use two strategies for collaboration: 
 
-Client-server version control systems
+### Shared Folders (Dropbox/Box)
 
-idea: non-linear, distributed system where every worker has a full copy of the repository and its history.  Work in parallel. Fast, scalable. 
+* Single synced shared folder 
+* Previous versions named by date or stored in a sub-folder called "older versions"
+* Simultaneous editing results in conflicts
+* Conflicting files renamed automatically, resolved manually
+* Cloud-based software keeps track of synced changes and file versions
+* Restoring older versions possible 
+* No automatic merging of changes
+* Offline work possible
+
+---
+
+# Collaboration in research II
+
+### Online real-time concurrent editing (Google Docs/Overleaf/Atom teletype)
+
+* Single synced shared file, updated online 
+* Simultaneously/concurrent editing 
+* Previous versions stored online
+* No versioning or branching
+* Conflicts cannot arise because two people cannot be working on different versions of the same document
+* Restoring older versions possible
+* Offline work either impossible or difficult to merge
 
 
 ---
 
-# Strategies
+# Problems
 
-Non-quantitative academic researchers basically use two strategies for collaboration: 
+These strategies can work well for text or rich text documents where there is a single "master" version.  
 
-### Shared Folders (Dropbox/Box)
+However, managing complex projects spread across many files/directories can be very difficult.  Things are worse when there are a lot of people contributing to the project.  
 
-Single synced shared folder. One person edits at a time. Previous versions named by date and stored in a sub-folder called "older versions".  Conflicting files renamed automatically, resolved manually. Cloud-based software keeps track of synced changes.  Restoring older versions possible. No automatic merging. 
+These approaches do not scale, and it can be very difficult to manage conflicts and multiple versions of files. 
 
-### Online real-time (Google Docs/Overleaf)
+When conflicting versions arise, or someone has introduced an error into the "master" document, it can be difficult to track down the error and fix it without destroying other changes. 
 
-Single synced shared file, updated online simultaneously and concurrently. Previous versions stored online.  No versioning or branching. Conflicts cannot arise because two people cannot be working on different versions of the same document. Restoring older versions possible.
+### Systems for managing collaboration
+
+In the field of software engineering, workers have developed _social and technological solutions_ to the the problem of managing collaborative work. 
+
+The technological aspect of this system is usually called _version control_. 
 
 ---
 
 # Why version control? 
 
-Version control helps teams manage and keep track of changes to documents (e.g. source code) over time.
+Version control helps teams manage and keep track of changes to documents (e.g. source code, text files) over time.
 
 For modern collaboration and software development, it is not reasonable to block collaborators from working on the project while one person makes changes to a single file.  
 
-It is better to let team members work in parallel.  
+It is better to let team members work in parallel and to meticulously keep track of each change, and who made that change, at each point in development of the project.  
 
-However, simultaneous editing by different people can introduce conflicts that introduce errors in the document/code, and require painstaking merging of multiple changes. 
+Simultaneous editing by different people can introduce conflicts that introduce errors in the document/code, and require painstaking merging of multiple changes. 
 
-
-
-Other version control systems
+Several version control systems have been developed:
 
 > cvs svn bitkeeper hg git
 
-centralized and distributed version control
-locking
+---
 
+# A brief history of version control
 
---
+Early version control systems had a centralized repository that required people to "check out" a file that they wished to work on.  That file was "locked" and others could not edit it simultaneously.  This system was effective at avoiding conflicting file versions and permitting simultaneous editing of _different_ files, but it was limiting. 
 
-# The rise of Git
-
-Git was created by Linus Torvalds, the inventor of Linux, in 2005 to manage work by hundreds of developers on the Linux kernel.  
-
-Git was designed for software development by large teams.  But it is useful for many kinds of projects. 
-
-Git is difficult to learn for people unfamiliar with modern software development practices and newcomers to version control.  
+Later systems used a distributed collaboration model that permitted branching, or having a different version of a file or repository that could be developed independently of the master version. 
 
 ---
 
-# A philosophy
+# The rise of Git
 
+Git was created by Linus Torvalds, the inventor of Linux, in 2005 to manage work by hundreds of developers on the Linux kernel. 
+
+Git was designed for software development by large teams.  But it is useful for many kinds of projects.
+
+### Big ideas 
+
+* distributed, parallel workflow
+* every contributor has a full copy of the repository and its history
+* fast and scalable. 
+
+Unfortunately Git can be difficult to learn for people unfamiliar with modern software development practices and newcomers to version control. 
+
+---
+
+# Git philosophy
 
 The thing to remember is that scientific collaboration is a social act.  
 
 A version control system does not replace planning and communication during a project. 
 
-For us, Git completely solves three problems, and partially solves another:
+For academic researchers, Git+GitHub completely solves three problems, and partially solves another:
 1. version control
-2. offsite backup
+2. offsite backup and syncing between computers
 3. data/code sharing post-publication
 4. communicating project needs, plans, and changes to team members
 
@@ -214,13 +246,14 @@ The fourth one is by far the hardest.
 
 # Github
 
-Github is an online platform for hosting Git repositories plus many other services, founded in 2008. 
+[Github](http://github.com) is an online platform for hosting Git repositories. 
 
-In addition to providing offsite storage, Github offers features not found in basic Git: 
-* access control 
-* issue tracking 
-* wikis
-* pull requests with code review and comments
+In addition to providing offsite storage for Git repositories, Github offers many additional services. 
+* Access control 
+* Issue tracking 
+* Wikis
+* Pull requests with code review and comments
+* Markdown rendering
 * Gists
 
 An academic Github account with unlimited public and private repositories is free.  
@@ -228,13 +261,159 @@ An academic Github account with unlimited public and private repositories is fre
 
 ---
 
-# GUIs
+class: center
 
-https://git-scm.com/downloads/guis
+# GitHub profile page
 
-Github desktop
-SourceTree
-Atom IDE
+<img src="img/githubprofile.png" width="700px">
+
+---
+
+# First steps: do you have Git? 
+
+On the UNIX command line, do this: 
+```bash
+git --version
+```
+You should see something like this: 
+```bash
+git version 2.15.2 (Apple Git-101.1)
+```
+
+If you do not have Git, follow these instructions: 
+
+https://www.atlassian.com/git/tutorials/install-git
+
+Once you have installed Git, do this setup: 
+```bash
+git config --global user.name "Forrest Crawford"
+git config --global user.email "forrest.crawford@yale.edu"
+```
+
+---
+
+# Graphical interface to Git
+
+There are many GUIs for Git: https://git-scm.com/downloads/guis
+
+The most popular ones: 
+* [Github Desktop](https://desktop.github.com)
+* [SourceTree](https://www.sourcetreeapp.com)
+* [Atom IDE](https://ide.atom.io/)
+
+For this tutorial, we will use Git on the command line because: 
+* The commands are the same on any system
+* No matter how the GUI behaves, you can always interact with Git on the command line
+* Command line Git is more flexible and powerful
+* GUI button names are mostly the same as Git command names
+* I do not use the GUIs
+
+---
+
+class: center
+
+# GitHub Desktop
+
+<img src="img/githubdesktop.png" width="700px">
+
+---
+
+class: center
+
+# SourceTree (Atlassian)
+
+<img src="img/sourcetree.png" width="700px">
+
+---
+
+# Tutorial I: clone these slides 
+
+These slides are hosted in a git repository at https://github.com/fcrawford/git-intro. Let's get the repository and inspect it. 
+
+Make a directory
+```bash
+cd ~
+mkdir src
+cd src
+```
+Get the repo by "cloning" it:
+```bash
+git clone git@github.com:fcrawford/git-intro.git
+```
+
+Now inspect the cloned repository. 
+```bash
+cd git-intro
+```
+
+Look at the files in there: 
+```bash
+ls -la
+```
+
+---
+
+# Tutorial I: look at the files 
+
+You will see something like
+```bash
+total 48
+drwxr-xr-x   7 forrestcrawford  staff    224 Sep 19 09:18 ./
+drwxr-xr-x  57 forrestcrawford  staff   1824 Sep  5 20:07 ../
+drwxr-xr-x  17 forrestcrawford  staff    544 Sep 19 09:14 .git/
+-rw-r--r--   1 forrestcrawford  staff      5 Sep 19 09:14 .gitignore
+-rw-r--r--   1 forrestcrawford  staff    225 Sep 19 09:14 README.md
+-rw-r--r--   1 forrestcrawford  staff  12537 Sep 19 09:18 git-intro.html
+drwxr-xr-x   5 forrestcrawford  staff    160 Sep 19 09:10 img/
+```
+
+* `README.md` is a Markdown file containing meta-information and comments
+* `git-intro.html` is the html/MD file containing the slides
+* `img/` is a directory containing some images used in these slides
+* `.gitignore` is a file that tells Git to ignore some files
+* `.git` is a hidden directory containing information for Git. 
+
+---
+
+# Tutorial I: inspect the history
+
+Let's see the history of this repo
+```bash
+git log
+```
+You will see entries that look like this: 
+```bash
+commit 253979ebbcd61fc0d65a90e502297d661087efa3
+Author: Forrest Crawford <forrest.crawford@gmail.com>
+Date:   Wed Sep 5 22:28:48 2018 -0400
+
+    more content
+```
+Type `q` to exit the log display. 
+
+
+---
+
+# Tutorial I: status and remote
+
+### Status 
+
+```bash
+git status
+```
+
+### Remote hosts
+
+```bash
+git remote -v
+```
+and you will see
+```bash
+origin	git@github.com:fcrawford/git-intro.git (fetch)
+origin	git@github.com:fcrawford/git-intro.git (push)
+```
+
+
 
 
 ---
@@ -257,7 +436,7 @@ reset
 rebase
 blame 
 
-gitignore
+.gitignore
 
 ---
 
@@ -301,7 +480,26 @@ Never add auxiliary files to a repo.  Use the `.gitignore` file to manage.
 
 ---
 
-# A Slack + Git workflow
+# Using Git on your own
+
+You may wish to use GitHub to host a private repo that you are working on alone.  For example, your CV or a project you are not ready to share yet.  
+
+Maybe want to get the benefits of automatic versioning, offsite storage, and easy syncing between machines, but aren't ready to share with others.  
+
+
+
+
+
+
+---
+
+# Using Git with one or two others
+
+
+
+---
+
+# A Slack + Git workflow for collaboration 
 
 For collaboration with me and most other academic researchers, there is a simple workflow that will work well for you.  
 
@@ -314,6 +512,13 @@ after you make your last commit, summarize the changes.
 Use the README.md to keep a todo list and summarize progress.  This will become the public introduction to your project. 
 
 ---
+
+# Contributing to an existing project
+
+
+---
+
+
 
 Consideration for Tex/LaTeX documents
 
