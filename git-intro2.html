@@ -142,13 +142,36 @@ Forrest W. Crawford
 
 layout: false
 
+# Collaborating with Git
 
+Just using Git on your own is complicated. Using Git to collaborate with several other people on a project can be difficult.  
+
+### Why would anyone do this? 
+
+
+---
+
+# Some ideas for collaborating
+
+We will need a strategy for communicating about project needs
+* who will make the change? 
+* Can two people edit the same file at the same time? 
+* what things still need to be done
+* who is responsible for ensuring the whole project is progressing? 
+
+We will need a strategy for interacting with Git as individuals
+* small commits
+* good commit messages
+* working with others on merging changes
+* mastery of git commands 
 
 ---
 
 # A Slack + Git workflow for collaboration 
 
 For collaboration with me and most other academic researchers, there is a simple workflow that will work well for you.  
+
+In my group, we use Slack for real-time communication.  This strategy will work with any system, but can be frustratingly slow over email. 
 
 Write on the Slack channel what you are going to work on today. If another person is also working, say which files, and ask that they don't mess with the files you are changing. 
 
@@ -158,15 +181,42 @@ after you make your last commit, summarize the changes.
 
 Use the README.md to keep a todo list and summarize progress.  This will become the public introduction to your project. 
 
+
+---
+
+# Creating a ssh key for Github
+
+RSA public/private keys 
+
+ssh-keygen
+
+
+
+
 ---
 
 # Workflows
 
-Creating a new repo from scratch
+---
+
+# Starting a project:
 
 Creating a new repo from an existing directory
+Create a new repo you started on github
+Clone a repo
+Fork a repo
 
-Looking at the code for another project
+---
+
+# Contributing to a project 
+
+If you have commit permission
+If you do not have commit permission
+pull requests
+contributing to a project in which you are a collaborator
+contributing to a project you forked
+
+---
 
 Contributing to another project 
 
@@ -178,7 +228,7 @@ Pull requests
 
 ---
 
-# Best practices 
+# Best practices for collaboration
 
 Plan and communicate with your collaborators.  Who is working on what, and when? 
 
@@ -198,22 +248,69 @@ Don't leave uncommitted changes at the end of the day. Push everything to remote
 
 Never add auxiliary files to a repo.  Use the `.gitignore` file to manage. 
 
----
+Simple, descriptive, short file/directory names. 
 
-# Using Git on your own
-
-You may wish to use GitHub to host a private repo that you are working on alone.  For example, your CV or a project you are not ready to share yet.  
-
-Maybe want to get the benefits of automatic versioning, offsite storage, and easy syncing between machines, but aren't ready to share with others.  
-
-
-
-
-
+No spaces in file names
 
 ---
 
-# Using Git with one or two others
+# Ideal repo layout for academic paper project
+
+projname
+ * `.gitignore`
+   - Files for Git to ignore, that you do not want to version. 
+ * README
+   - Use this as a wish/to-do list for the project.
+   - If many people are involved, use the README to manage task assignments and responsibilities, goals/deadlines. 
+ * R
+   - source code 
+   - do not version control simple outputs or visualizations, unless they are publication quality and going in the main ms. 
+ * data 
+   - in csv or other plain text format
+ * manuscript 
+   - projname.tex
+   - projname.bib
+   - sty
+   - cls
+   - Makefile
+
+---
+
+# Example `.gitignore` 
+
+```bash
+manuscript/*.aux 
+manuscript/*.bbl
+manuscript/*.blg
+manuscript/*.log
+manuscript/*.out
+manuscript/projname.pdf
+R/*.Rout
+R/*.pdf
+```
+
+
+put images that result from data analysis directly in the "manuscript" directory
+
+All paths relative.  Nothing specific to your computing setup.  
+
+
+---
+
+# Vignettes
+
+Bad commit(s) and you want to rewind (revert)
+rebase
+reset
+
+Merge conflict (one commit behind origin master)
+
+Detatched HEAD
+
+create a branch to experiment, push to origin for a while, then merge with master 
+
+
+
 
 
 
@@ -231,18 +328,16 @@ after you make your last commit, summarize the changes.
 
 Use the README.md to keep a todo list and summarize progress.  This will become the public introduction to your project. 
 
----
-
-# Contributing to an existing project
 
 
 ---
 
+# Consideration for Tex/LaTeX documents
+
+Communicate early and often about the _content_ of the document you want to write.  
 
 
-Consideration for Tex/LaTeX documents
-
-break up files
+In the early stages of a project, break up files into sections and use "include" commands
 small lines
 never add aux, log, out, bbl, blg, pdf (unless image) to the repo.  Only what is necessary to compile. 
 
